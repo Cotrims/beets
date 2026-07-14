@@ -46,6 +46,8 @@ Bug fixes
 - Parse LRC lyrics timestamps that use three-digit (millisecond)
   fractions (``[mm:ss.xxx]``) in addition to the two-digit
   (centisecond) form, so synced timing is preserved for such files.
+- :doc:`plugins/subsonicupdate`: Log a clearer error when the Subsonic server
+  returns a non-JSON response. :bug:`5635`
 - :doc:`plugins/importfeeds`: ``beet import`` no longer aborts the whole run
   when a symlink cannot be created (e.g. on Windows or a read-only directory);
   the failure is logged and the import continues. :bug:`840`
