@@ -27,8 +27,8 @@ class Lyrics:
 
     ORIGINAL_PAT = re.compile(r"[^\n]+ / ")
     TRANSLATION_PAT = re.compile(r" / [^\n]+")
-    LINE_PARTS_PAT = re.compile(r"^(\[\d\d:\d\d\.\d\d\]|) *(.*)$")
-    LRC_TIMESTAMP_PAT = re.compile(r"\[(\d{2}):(\d{2})\.(\d{2})\]")
+    LINE_PARTS_PAT = re.compile(r"^(\[\d\d:\d\d\.\d\d\d?\]|) *(.*)$")
+    LRC_TIMESTAMP_PAT = re.compile(r"\[(\d{2}):(\d{2})\.(\d{2,3})\]")
 
     text: str
     backend: str | None = None
@@ -141,8 +141,11 @@ class Lyrics:
                 continue
             ts_m = self.LRC_TIMESTAMP_PAT.match(ts)
             if ts_m:
-                m, s, cs = map(int, ts_m.groups())
-                ms = (m * 60 + s) * 1000 + cs * 10
+                minutes, seconds, frac = ts_m.groups()
+                ms = (int(minutes) * 60 + int(seconds)) * 1000
+                # A fracao do LRC pode vir em centesimos (2 digitos) ou
+                # milesimos de segundo (3 digitos).
+                ms += int(frac) * 10 if len(frac) == 2 else int(frac)
                 result.append((text, ms))
         return result
 
