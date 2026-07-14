@@ -65,3 +65,11 @@ def test_match_source_url(source, source_with_url):
         assert not extract_release_id(source, source_with_url.url), (
             f"Source {source} pattern should not match {source_with_url.source} URL"
         )
+
+
+def test_extract_release_id_unknown_source_returns_input():
+    """Fonte desconhecida: a funcao registra debug e devolve o id/url como veio."""
+    assert (
+        extract_release_id("nao_existe", "qualquer-coisa") == "qualquer-coisa"
+    )
+    assert extract_release_id("NAO_EXISTE", "123") == "123"
