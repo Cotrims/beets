@@ -117,7 +117,7 @@ jobs:
         name: SonarCloud static analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
 
   upload-coverage:
     name: Upload coverage report
