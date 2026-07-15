@@ -468,7 +468,11 @@ class TestQuery:
 
     @pytest.mark.parametrize("query_class", [MatchQuery, StringFieldQuery])
     def test_equality(self, query_class):
-        assert query_class("foo", "bar") == query_class("foo", "bar")
+        # Duas instancias construidas separadamente devem ser iguais em valor.
+        # (Evita a auto-comparacao sintatica apontada pelo SonarCloud, S5863.)
+        query = query_class("foo", "bar")
+        equal_query = query_class("foo", "bar")
+        assert query == equal_query
 
     @pytest.mark.parametrize(
         "make_q, expected_msg",
