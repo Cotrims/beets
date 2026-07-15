@@ -26,6 +26,10 @@ jobs:
       IS_MAIN_PYTHON: ${{ matrix.python-version == '3.10' && matrix.platform == 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          # Sonar needs the history to assign "blame" to lines
+          fetch-depth: 0
+
       - name: Install uv
         uses: astral-sh/setup-uv@v8.1.0
         with:
@@ -108,6 +112,12 @@ jobs:
         with:
           name: coverage-report
           path: .reports/coverage.xml
+
+      - if: ${{ !cancelled() && env.SONAR_TOKEN != '' }}
+        name: SonarCloud static analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        uses: SonarSource/sonarqube-scan-action@v6
 
   upload-coverage:
     name: Upload coverage report

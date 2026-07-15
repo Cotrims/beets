@@ -12,6 +12,9 @@ Unreleased
 New features
 ~~~~~~~~~~~~
 
+- Recognize native Spotify URIs (e.g. ``spotify:album:<id>`` and
+  ``spotify:track:<id>``) when extracting release/track IDs, in addition to full
+  ``open.spotify.com`` URLs and bare IDs.
 - :doc:`/plugins/convert`: Add new configuration option ``convert.refresh`` and
   command-line option ``--refresh``, allowing to force ``convert`` operation
   when original file is newer than existing converted file.
@@ -43,6 +46,8 @@ New features
 Bug fixes
 ~~~~~~~~~
 
+- :doc:`plugins/subsonicupdate`: Log a clearer error when the Subsonic server
+  returns a non-JSON response. :bug:`5635`
 - :doc:`plugins/importfeeds`: ``beet import`` no longer aborts the whole run
   when a symlink cannot be created (e.g. on Windows or a read-only directory);
   the failure is logged and the import continues. :bug:`840`
