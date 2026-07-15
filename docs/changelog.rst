@@ -12,6 +12,7 @@ Unreleased
 New features
 ~~~~~~~~~~~~
 
+
 - :doc:`/plugins/convert`: Add new configuration option ``convert.refresh`` and
   command-line option ``--refresh``, allowing to force ``convert`` operation
   when original file is newer than existing converted file.
